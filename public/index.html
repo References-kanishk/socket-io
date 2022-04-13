@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    some
+    <div id='test'>
+        
+    </div>
+    <input type="text" id="input">
+    <button >
+        send
+    </button>
+</body>
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+<script>
+var socket = io.connect("http://localhost:4000/");
+document.getElementById("input").addEventListener("change",function(eve){
+    socket.emit("chat",{
+        val:eve.target.value
+    })
+    
+})
+function some(){
+    socket.emit("chat",{
+        val:'new'
+    })
+}
+socket.on("chat",function(data){
+    document.getElementById('test').innerHTML=data.val;
+})
+</script>
+</html>
